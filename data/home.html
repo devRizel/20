@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mobile App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../includes/css/css/themes/default/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" href="../includes/css/css/themes/default/index.css"/>
+    <script src="../includes/js/jquery.js"></script>
+    <script src="../includes/js/jquery.mobile-1.4.5.min.js"></script> 
+    <style>
+       .header {
+            position: fixed;
+            text-align: center;
+            padding: 10px;
+            top: 0;
+    left: 0;
+    width: 100%;
+        }
+        .icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .icon.right {
+            left: auto;
+            right: 30px;
+        }
+        .total-entries {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff007b, #007bff, #00ff88);
+    background-size: 300% 300%;
+    color: white;
+    padding: 10px;
+    margin: 15px auto;
+    border-radius: 8px;
+    width: 80%;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeInScale 0.8s ease-in-out, gradientShift 4s infinite linear;
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animated-heading {
+    animation: fadeInScale 0.8s ease-in-out, gradientShift 4s infinite linear;
+}
+
+body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+    #popupDetails {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 250px;
+    height: 80%;
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis; 
+    font-size: 14px;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.dark-mode .ui-page,
+body.dark-mode .ui-panel,
+body.dark-mode .ui-content {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-mode .ui-btn {
+    background-color: #333 !important;
+    color: #fff !important;
+    border: none;
+}
+
+body.dark-mode .total-entries {
+    background: linear-gradient(45deg, #333, #555, #777);
+}
+
+body.dark-mode .header {
+    background-color: #1e1e1e;
+}
+
+body.dark-mode a.icon {
+    color: white;
+}
+.ui-btn1{
+    border-radius: 20px !important; 
+}
+
+    </style>
+</head>
+<body>
+    <div data-role="page" id="page1">
+        <div data-role="header" class="header">
+            <h1></h1>
+            <a href="#" class="icon" id="menuIcon" onclick="toggleNavbar()">&#9776;</a>
+        </div>
+        <div data-role="panel" id="overlaypanel" data-position="left" data-display="overlay">
+            <br><br>
+            <a onclick="window.location.href='home.html'" class="ui-btn">Home</a>
+            <a href="#translate" data-rel="popup" data-position-to="window" class="ui-btn">Translate</a>
+            <div data-role="popup" id="translate" class="ui-content" data-overlay-theme="b" style="max-width:300px; text-align:center;">
+                <a href="#" id="disableDarkMode" onclick="$('#translate').popup('close');"  id="closePopup" class="ui-btn ui-btn1" data-theme="a">English</a>
+                <a  onclick="window.location.href='home2.html'"   class="ui-btn ui-btn1" data-theme="a">Tagalog</a>
+            </div>
+            <a onclick="window.location.href='about.html'" class="ui-btn">About</a>
+            <a href="#darkModePopup" data-rel="popup" data-position-to="window" class="ui-btn">Dark Mode</a>
+            <div data-role="popup" id="darkModePopup" class="ui-content" data-overlay-theme="b" style="max-width:300px; text-align:center;">
+                <a href="#" id="disableDarkMode" class="ui-btn ui-btn1" data-theme="a">Light Mode</a>
+                <a href="#" id="enableDarkMode" class="ui-btn ui-btn1" data-theme="a">Dark Mode</a>
+            </div>
+            <a id="exitConfirmButton" class="ui-btn"  data-rel="popup" data-position-to="window" data-transition="pop">Exit</a>
+            <div data-role="popup" id="popupCloseRight" class="ui-content">
+                <p>Are you sure you want to Exit?</p>
+               <a href="#" id="exitButton"  class="ui-btn ui-btn1" data-role="button" data-theme="a">Yes</a>
+                <a href="#" id="closePopup" class="ui-btn ui-btn1" data-role="button" data-theme="a">No</a>
+                </div>
+        </div>
+        <br>
+        <div role="main" class="ui-content animated-heading"></div>
+        <div data-role="content" class="animated-heading">
+            <input id="searchInput" list="searchOptions" placeholder="Search..." />
+            <datalist id="searchOptions">
+              <option value="Milk Tea">
+              <option value="Shake">
+              <option value="Combo Package">
+                <option value="Others">
+            </datalist>
+            <script>
+              const input = document.getElementById('searchInput');
+              input.addEventListener('change', () => {
+                const value = input.value;
+                const links = {
+                  "Milk Tea": "milktea.html",
+                  "Shake": "shake.html",
+                  "Combo Package": "combopackage.html",
+                   "Others": "others.html"
+                };
+                if (links[value]) {
+                  window.location.href = links[value];
+                }
+              });
+            </script>
+        <br>
+            <div id="extraContent">
+                <p style="font-size: 30px; text-align: center;">RTea Hauz Menu</p>
+            </div>
+        </div>
+        <div role="main" class="ui-content" style="text-align: center;">
+            <a class="animated-heading" href="#popup122" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/m1.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup122" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup122" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/m1.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">🥤MILO BOMB (ice blended)
+                            📞 09215123957
+                            📍 Rtea Hauz Poblacion Madridejos Cebu 
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup28" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/m2.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup28" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup28" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/m2.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            🥤: Ice Spanish Latte
+                            📞 09215123957
+                            📍 Rtea Hauz Poblacion Madridejos Cebu 
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup389" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/m3.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup389" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup389" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/m3.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Eggdrop Sandwich x Caramel Mocha for this windy weekend🥤
+                            📍Rtea Hauz Poblacion Madridejos Cebu 
+                            ☎️09215123957 
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup49" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/m4.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup49" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup49" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/m4.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Poblacion Madridejos Cebu at the back of Cultural Center
+                            📞09215123957 available for dine in & delivery
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup19" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o1.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup19" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup19" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o1.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Weekend is almost over! Hope you had a good one! 
+Sisig x Chicken Silog
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup28" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o2.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup28" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup28" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o2.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Shawarma x Avocado Shake
+                            📍Poblacion Madridejos Cebu at back of cultural center
+                            ⏰ 10AM- 10PM daily
+                            📞 (0921) 5123957 for pick up and delivery
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup38" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o3.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup38" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup38" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o3.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            📣Introducing our new product✨
+                            BEEF SHAWARMA 🫓
+                            📍Poblacion Madridejos Cebu at the back of cultural center 
+                            ☎️09215123957 for pick up & delivery
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup47" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o4.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup47" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup47" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o4.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Siomai sa Tisa & Ngohiong available 📍Rtea Hauz
+                            ⏰Mon - Sun 10AM - 10PM
+                            📞 09215123957
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup53" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o5.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup53" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup53" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o5.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Siomai sa Tisa & Ngohiong available 📍Rtea Hauz
+                            ⏰Mon - Sun 10AM - 10PM
+                            📞 09215123957
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup63" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o6.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup63" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup63" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o6.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Rainy day & can't go outside? 🤭
+                            Yet still craving for Sisig, Silog, Premium Milktea, Cheesecakes, Mango Graham Shake, Fruit Shake, or other food that satisfy your tummy ⁉️
+                            Don't worry, we got you guys❗
+                            Order now & we will deliver 🥰🥰
+                            📍Gomez St. Poblacion Madridejos Cebu ( at the back Madridejos Cultural Center )
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup73" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o7.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup73" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup73" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o7.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Rainy day & can't go outside? 🤭
+                            Yet still craving for Sisig, Silog, Premium Milktea, Cheesecakes, Mango Graham Shake, Fruit Shake, or other food that satisfy your tummy ⁉️
+                            Don't worry, we got you guys❗
+                            Order now & we will deliver 🥰🥰
+                            📍Gomez St. Poblacion Madridejos Cebu ( at the back Madridejos Cultural Center )
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup82" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o8.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup82" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup82" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o8.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Rainy day & can't go outside? 🤭
+                            Yet still craving for Sisig, Silog, Premium Milktea, Cheesecakes, Mango Graham Shake, Fruit Shake, or other food that satisfy your tummy ⁉️
+                            Don't worry, we got you guys❗
+                            Order now & we will deliver 🥰🥰
+                            📍Gomez St. Poblacion Madridejos Cebu ( at the back Madridejos Cultural Center )
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup942" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o9.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup942" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup942" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o9.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            🔥SISIG + 🍚RICE + 🍳EGG
+                            Message us for orders! Available for dine-in, takeout and delivery! 😉
+                            ⏰STORE SCHEDULE:
+                            MONDAY - SUNDAY
+                            10:00AM - 10:00PM
+                            📍Gomez St. Poblacion Madridejos Cebu (at the back of Madridejos Cultural Center)
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup104" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/o10.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup104" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup104" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/o10.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Silog Menu🤍
+                            See you tomorrow mga ka-RTea🥰
+                            Store opens around 8:00am to 10:00pm🥰
+                            Gomez St. Poblacion Madridejos Cebu at the back of Cultural Center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup14" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s1.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup14" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup14" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s1.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">Hydrate with your favorite AVOCADO FRUIT SHAKE!
+                            New contact number for delivery - 📞 09215123957
+                            📍 RTEA HAUZ POBLACION MADRIDEJOS CEBU
+                            ⏰ 10AM-10PM daily
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup24" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s2.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup24" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup24" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s2.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">Palamig Sa Tag Init🌤🌤🌤
+                            Try our Fresh Fruit Shake 
+                            AVOCADO 🥑 & GUYABANO 
+                            Available for dine in, take out, and delivery! 💯
+                            For inquiries:
+                            📍 RTEA HAUZ POBLACION MADRIDEJOS CEBU
+                            📱09215123957
+                            ⏰Open daily 10AM to 10PM
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup34" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s3.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup34" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup34" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s3.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">🥤MILO BOMB (ice blended)
+                            📞 09215123957
+                            📍 Rtea Hauz Poblacion Madridejos Cebu (at the back of Cultural Center)
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup44" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s4.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup44" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup44" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s4.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Fuel Monday with your favorite cup of Ube Halaya Cheesecake💜💜💜
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup54" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s5.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup54" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup54" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s5.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Creamy Guyabano Shake available today🥤
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup64" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s6.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup64" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup64" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s6.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Hurray for Friday!!! Treat yourself with our best seller DARK CHOCO CHEESECAKE 🍫🥤  
+                            Available for dine in and delivery🛵
+                            📍Rtea Hauz Poblacion Madridejos Cebu at the back of Cultural Center
+                            ☎️ 09215123957
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup74" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s7.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup74" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup74" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s7.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Heat is intense today! ☀️ Grab your favorite cold drinks at Rtea Hauz
+                            Dragon Fruit Shake x Avocado Fruit Shake
+                            Available for dine in & delivery
+                            ☎️09215123957
+                            📍Poblacion Madridejos Cebu at the back of Cultural Center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup84" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s8.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup84" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup84" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s8.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Fuel up your Monday with these FRESH AVOCADO SHAKE! 🥑Have a great week ahead!❤️
+                            📍RTEA HAUZ POBLACION MADRIDEJOS CEBU (at the back cultural center)
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup94" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s9.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup94" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup94" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s9.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Grabe ang init! ☀️ Cool down with your favorite cup!
+                            🥤Mango Graham Shake
+                            📍Poblacion Madridejos Cebu at the back of Cultural Center
+                            Available for dine & delivery🛵
+                            ☎️09215123957 for your order
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup104" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s10.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup104" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup104" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s10.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Perfect day to grab some Ice Blended Drinks!
+                            🥤Ice Blended Matcha Cheesecake 
+                            Our store is OPEN.
+                            📍Poblacion Madridejos Cebu at the back of Cultural Center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup111" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s11.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup111" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup111" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s11.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Forda heat☀️
+                            📣BUY 2 get 1 for FREE !!
+                            Still available until today🥰
+                            📍Poblacion Madridejos Cebu at the back of cultural center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup122" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s12.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup122" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup122" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s12.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            No rain could stop these cravings 😍
+                            🥤 Avocado Fresh Fruit Shake available now🥑🥑🥑
+                            📞09215123957 for your order
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup132" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s13.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup132" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup132" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s13.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Dragon Fruit Shake is now available RTea Hauz
+                            Available for dine in, take out & delivery🛵
+                            📞09215123957 for order❤️
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup142" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s14.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup142" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup142" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s14.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Still available until today🥰
+                            📍Poblacion Madridejos Cebu at the back of cultural center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup152" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/s15.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup152" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup152" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/s15.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Dragon Fruit Shake is now available RTea Hauz
+                            Available for dine in, take out & delivery🛵
+                            📞09215123957 for order❤️
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup10" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c1.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup10" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup10" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img  class="popphoto " src="../includes/img/c1.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            Beat the heat with our sizzling Buy 2 Get 1 FREE PREMIUM MILKTEA promo on Cheesecake Series,Milktea,Fruit Shake,Fruit Soda,Scramble,Halo-Halo,Mango Graham & Coffee🧋Dive into the refreshing goodness and make the most of the sunny days ahead. Don't miss out on this hot deal! Tag your summer squad and let's sip away together!
+
+                            📍RTEA HAUZ POBLACION MADRIDEJOS CEBU (at the back of Madridejos Cultural Center)
+                            📞09215123957 for your order
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup20" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c2.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup20" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup20" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/c2.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p class="animated-heading" style="text-align: justify;">
+                            Avail our BUY 2 any milktea,cheesecake,fruit shake,mango graham,fruit soda,coffee get 16oz Wintermelon or Ube Scramble for FREE, perfect for your date. Kahit kasama pa si Third wheel😂🤪
+                            Buy 2 Milktea P198 get free 16oz wintermelon milktea/ube scramble
+                            Buy 2 Cheesecake P260 get free 16oz Wintermelon milktea/ube scramble
+                            Buy 2 Fruit Shake P220 get free 16oz Wintermelon Milktea/ube scramble
+                            Buy 2 Mango Graham Shake P190 get free 16oz Wintermelon Milktea/ube scramble 
+                            Buy 2 Fruit Soda P178 get free 16oz Wintermelon/ube scramble 
+                            Buy 2 R’Coffee P200 get free 16oz Wintermelon/Scramble
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup30" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c3.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup30" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup30" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/c3.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p class="animated-heading" style="text-align: justify;">
+                            ‼️PROMO EXTENDED BUY 1 Get 1‼️
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup40" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c4.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup40" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup40" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/c4.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            📣LONG WEEKEND PROMO‼️
+                            ‼️BUY 2 get 1 for FREE‼️
+                            Because we want you to enjoy your long weekend. 
+                            Buy any 2 drinks ( milktea,cheesecake,fruit shake,mango graham shake,fruit soda) and get 1 premium milktea for FREE  
+                            Visit us:
+                            📍Poblacion Madridejos Cebu at the back of Cultural Center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup50" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c5.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup50" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup50" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/c5.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            ⏰ We are open 10 AM - 10 PM
+                            📍 Gomez St. Poblacion Madridejos Cebu ( at the back of CULTURAL CENTER )
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup60" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c6.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup60" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup60" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/c6.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            *Buy 3 22oz Mango Graham Shake  get 1 220z Premuim Milktea FREE
+*Buy 3 22oz Cheesecake Series get 1 22oz Premuim Milktea FREE
+*Buy 3 Fruit Shakes get 1 22oz Premium Milktea FREE
+*Buy 3 Fruit Soda get 1 22oz Premuim Milktea FREE
+*Buy 3 22oz Ice Scramble get 1 22oz Premium Milktea FREE
+*Buy 3 22oz Premium Milktea get 1 22oz Premium Milktea FREE
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup70" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c7.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup70" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup70" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/c7.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            📢 Mama Mary Birthday Promo sa RTEa Hauz❗️
+Buy 2 get 1 FREE❤️
+Buy 2 any of PREMIUM MILKTEA, CHEESECAKE SERIES, FRUIT SODA, MANGO GRAHAM SHAKE, FRUIT SHAKE , SCRAMBLE and GET 1 Free
+Available for dine in , take out and delivery 
+📞09215123957
+📍Gomez St. Poblacion Madridejos Cebu at the back of Madridejos Cultural Center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup80" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c8.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup80" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup80" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/c8.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">
+                            📢 Mama Mary Birthday Promo sa RTEa Hauz❗️
+Buy 2 get 1 FREE❤️
+Buy 2 any of PREMIUM MILKTEA, CHEESECAKE SERIES, FRUIT SODA, MANGO GRAHAM SHAKE, FRUIT SHAKE , SCRAMBLE and GET 1 Free
+Available for dine in , take out and delivery 
+📞09215123957
+📍Gomez St. Poblacion Madridejos Cebu at the back of Madridejos Cultural Center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup90" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c9.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup90" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup90" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/c9.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">📢 Mama Mary Birthday Promo sa RTEa Hauz❗️
+                            Buy 2 get 1 FREE❤️
+                            Buy 2 any of PREMIUM MILKTEA, CHEESECAKE SERIES, FRUIT SODA, MANGO GRAHAM SHAKE, FRUIT SHAKE , SCRAMBLE and GET 1 Free
+                            Available for dine in , take out and delivery 
+                            📞09215123957
+                            📍Gomez St. Poblacion Madridejos Cebu at the back of Madridejos Cultural Center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <hr>
+            <a class="animated-heading" href="#popup100" data-rel="popup" data-position-to="window" data-transition="fade">
+                <img src="../includes/img/c10.jpg" height="200" width="200px" alt="">
+            </a>
+            <center>
+                <a href="#popup100" data-rel="popup" data-position-to="window" data-transition="fade"
+                style="text-decoration: none; color: rgb(75, 72, 72);"
+                 >
+                    <p class="animated-heading">More Details</p>
+                </a>
+            </center>            
+            <div data-role="popup" id="popup100" data-overlay-theme="b" data-corners="false" style="max-height: 80vh; overflow-y: auto;">
+                <div style="padding: 10px;">
+                    <img class="popphoto" src="../includes/img/c10.jpg" style="max-height: 512px; width: 100%; height: auto;">
+                    <center>
+                        <p style="text-align: justify;">📢 Mama Mary Birthday Promo sa RTEa Hauz❗️
+                            Buy 2 get 1 FREE❤️
+                            Buy 2 any of PREMIUM MILKTEA, CHEESECAKE SERIES, FRUIT SODA, MANGO GRAHAM SHAKE, FRUIT SHAKE , SCRAMBLE and GET 1 Free
+                            Available for dine in , take out and delivery 
+                            📞09215123957
+                            📍Gomez St. Poblacion Madridejos Cebu at the back of Madridejos Cultural Center
+                        </p>
+                    </center>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br>
+        </div>
+        <script src="../includes/js/js/index.js"></script>
+        <script type="text/javascript">
+            // Toggle dark mode manually (if needed from elsewhere)
+            function toggleDarkMode() {
+                $('body').toggleClass('dark-mode');
+                if ($('body').hasClass('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                }
+            }
+        
+            // Initialize and bind dark mode events
+            $(document).ready(function () {
+                // Apply saved theme on page load
+                if (localStorage.getItem('theme') === 'dark') {
+                    $('body').addClass('dark-mode');
+                }
+        
+                $(document).on('click', '#enableDarkMode', function () {
+                    $('body').addClass('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                    $("#darkModePopup").popup("close"); // Close the popup
+                    closePanel();
+                });
+        
+                $(document).on('click', '#disableDarkMode', function () {
+                    $('body').removeClass('dark-mode');
+                    localStorage.setItem('theme', 'light');
+                    $("#darkModePopup").popup("close"); // Close the popup
+                    closePanel();
+                });
+            });
+        </script>
+        <script>
+            function toggleNavbar() {
+                var panel = $("#overlaypanel");
+                var icon = $("#menuIcon");
+                if (panel.hasClass("ui-panel-open")) {
+                    panel.panel("close");
+                    icon.removeClass("right");
+                } else {
+                    panel.panel("open");
+                    icon.addClass("right");
+                }
+            }
+            
+        
+            function closePanel() {
+                $("#overlaypanel").panel("close");
+                $("#menuIcon").removeClass("right");
+            }
+        
+            // Reset icon when panel closes manually
+            $(document).on("panelclose", "#overlaypanel", function() {
+                $("#menuIcon").removeClass("right");
+            });
+        </script>
+        
+    </div>
+</body>
+</html> 
